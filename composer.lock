@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "../laravel-ftn",
-                "reference": "ce5ba79140075504d9b582fbb0c50acbca4adb94"
+                "reference": "6a219245d2dac34e78bd271cd801669236a1ca76"
             },
             "require": {
                 "php": "^8.4"
