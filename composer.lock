@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfcd78f078c3993e27bd368c8ab7cc82",
+    "content-hash": "c4a7929ee030416f3018a4be91cf2873",
     "packages": [
         {
             "name": "golded-dev/laravel-ftn",
-            "version": "dev-main",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/golded-dev/laravel-ftn.git",
+                "reference": "f05cd2649d51899ed13c588689982160c9c112c7"
+            },
             "dist": {
-                "type": "path",
-                "url": "../laravel-ftn",
-                "reference": "6a219245d2dac34e78bd271cd801669236a1ca76"
+                "type": "zip",
+                "url": "https://api.github.com/repos/golded-dev/laravel-ftn/zipball/f05cd2649d51899ed13c588689982160c9c112c7",
+                "reference": "f05cd2649d51899ed13c588689982160c9c112c7",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.4"
@@ -30,35 +36,29 @@
                     "Golded\\Ftn\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Golded\\Ftn\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "pest"
-                ],
-                "test:types": [
-                    "phpstan analyse"
-                ],
-                "test:refactor": [
-                    "rector process --dry-run"
-                ],
-                "test:all": [
-                    "@test",
-                    "@test:types",
-                    "@test:refactor"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "GoldED.dev contributors"
+                }
+            ],
             "description": "Shared FTN message-base reader contracts and value objects.",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "homepage": "https://github.com/golded-dev/laravel-ftn",
+            "keywords": [
+                "fidonet",
+                "ftn",
+                "golded",
+                "message-base",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/golded-dev/laravel-ftn/issues",
+                "source": "https://github.com/golded-dev/laravel-ftn"
+            },
+            "time": "2026-04-25T15:43:52+00:00"
         }
     ],
     "packages-dev": [
@@ -7845,9 +7845,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "golded-dev/laravel-ftn": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -2,11 +2,29 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "golded-dev/laravel-ftn-squish",
     "description": "FTN Squish message-base reader.",
+    "keywords": [
+        "fidonet",
+        "ftn",
+        "golded",
+        "message-base",
+        "parser",
+        "squish"
+    ],
+    "homepage": "https://github.com/golded-dev/laravel-ftn-squish",
     "license": "MIT",
     "type": "library",
+    "authors": [
+        {
+            "name": "GoldED.dev contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/golded-dev/laravel-ftn-squish/issues",
+        "source": "https://github.com/golded-dev/laravel-ftn-squish"
+    },
     "require": {
         "php": "^8.4",
-        "golded-dev/laravel-ftn": "*@dev"
+        "golded-dev/laravel-ftn": "^1.0"
     },
     "require-dev": {
         "odinns/coding-style": "^1.0.1",
@@ -25,15 +43,6 @@
             "Golded\\Ftn\\Squish\\Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../laravel-ftn",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "scripts": {
         "test": "pest",
         "test:types": "phpstan analyse",
