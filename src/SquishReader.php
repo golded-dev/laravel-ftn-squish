@@ -6,6 +6,7 @@ namespace Golded\Ftn\Squish;
 
 use DateTimeImmutable;
 use Golded\Ftn\Contracts\MessageBaseReader;
+use Golded\Ftn\MessageProvenance;
 use Golded\Ftn\ParsedMessage;
 use Golded\Ftn\ReaderOptions;
 use Golded\Ftn\Support\CharsetDetector;
@@ -41,7 +42,7 @@ final class SquishReader implements MessageBaseReader
         }
 
         try {
-            yield from $this->readMessages($dataHandle, $indexHandle, $options);
+            yield from $this->readMessages($dataHandle, $indexHandle, $sqdPath, $options);
         } finally {
             fclose($dataHandle);
             fclose($indexHandle);
@@ -54,7 +55,7 @@ final class SquishReader implements MessageBaseReader
      *
      * @return iterable<ParsedMessage>
      */
-    private function readMessages($dataHandle, $indexHandle, ReaderOptions $options): iterable
+    private function readMessages($dataHandle, $indexHandle, string $sourcePath, ReaderOptions $options): iterable
     {
         $baseRaw = fread($dataHandle, self::BASE_SIZE);
 
@@ -119,7 +120,8 @@ final class SquishReader implements MessageBaseReader
             $bodyRaw = $textSize > 0 ? fread($dataHandle, $textSize) : '';
             $bodyRaw = $bodyRaw === false ? '' : $bodyRaw;
             $charset = CharsetDetector::detect($controlRaw.$bodyRaw, $options->fallbackCharset);
-            $body = $this->parseControlBlock($controlRaw).Text::parseBody($bodyRaw);
+            $controlText = $this->parseControlBlock($controlRaw);
+            $body = $controlText.Text::parseBody($bodyRaw);
             $replies = $this->unpackReplies($header['replies']);
             $reply1stMsgno = $replies[0] ?? 0;
             $fromName = Text::toUtf8($header['from'], $charset);
@@ -139,6 +141,13 @@ final class SquishReader implements MessageBaseReader
                     ?? Text::syntheticId($fromName, $toName, $subject, $postedAt?->format(DATE_ATOM), Text::parseBody($bodyRaw)),
                 replyToMsgno: $header['replyto'] ?: null,
                 reply1stMsgno: $reply1stMsgno ?: null,
+                controlLines: ControlLines::parseMessage($controlText.Text::parseBody($bodyRaw)),
+                provenance: new MessageProvenance(
+                    sourceType: 'squish',
+                    sourcePath: $sourcePath,
+                    sourceId: (string) $index['msgno'],
+                    sourceOffset: $index['offset'],
+                ),
             );
         }
     }

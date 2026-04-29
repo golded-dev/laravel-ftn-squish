@@ -4,6 +4,14 @@ Notable changes to `golded-dev/laravel-ftn-squish`.
 
 This project uses semantic versioning.
 
+## 1.1.0 - 2026-04-29
+
+### Added
+
+- Attach parsed FTN control-line metadata to returned `ParsedMessage` objects.
+- Attach message provenance with Squish data-file path, message number, and frame offset.
+- Require `golded-dev/laravel-ftn` v1.2.0 in the lockfile.
+
 ## 1.0.0 - 2026-04-25
 
 Initial stable release.

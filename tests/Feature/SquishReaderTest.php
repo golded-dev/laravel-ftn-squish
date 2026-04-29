@@ -44,6 +44,17 @@ it('reads Squish messages', function (): void {
         ->and($first->reply1stMsgno)->toBe(9);
 });
 
+it('attaches control metadata and provenance', function (): void {
+    $messages = array_values(iterator_to_array(new SquishReader()->read(squishFixtureBase())));
+    $first = firstSquishMessage($messages);
+
+    expect($first->controlLines?->msgid)->toBe('2:230/150 12345678')
+        ->and($first->provenance?->sourceType)->toBe('squish')
+        ->and($first->provenance?->sourcePath)->toEndWith('/stest1.sqd')
+        ->and($first->provenance?->sourceId)->toBe('1')
+        ->and($first->provenance?->sourceOffset)->toBe(256);
+});
+
 /**
  * @param list<ParsedMessage> $messages
  */
